@@ -1,3 +1,4 @@
+const API = "https://api-dev-cine.vercel.app/api/v1"
 document.addEventListener("DOMContentLoaded", async () => {
   // Obtener el ID de la película de la URL actual
   const urlParams = new URLSearchParams(window.location.search);
@@ -6,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Verificar si se proporcionó un ID de película válido
   if (movieId) {
     // Obtener los detalles de la película desde el servidor
-    const response = await fetch(`/movie/${movieId}`);
+    const response = await fetch(`${API}/movie/${movieId}`);
     const movie = await response.json();
 
     // Mostrar los detalles de la película en el contenedor

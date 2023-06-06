@@ -1,8 +1,9 @@
+const API = "https://api-dev-cine.vercel.app/api/v1"
 document.addEventListener("DOMContentLoaded", async () => {
   const moviesContainer = document.getElementById("movies-container");
 
   // Obtener películas del servidor
-  const response = await fetch(`/movies`);
+  const response = await fetch(`${API}/movies`);
   const movies = await response.json();
 
   // Mostrar las películas en el contenedor
