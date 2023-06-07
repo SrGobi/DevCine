@@ -39,6 +39,7 @@ h1 {
   margin: 0;
   padding: 0;
   display: flex;
+  align-items: center;
 }
 
 .navbar-item {
@@ -98,6 +99,7 @@ h1 {
   text-align: left;
   border: 1px solid #2f2f2f;
   background-color: #272727;
+  right: 0;
 }
 
 .search-result {
