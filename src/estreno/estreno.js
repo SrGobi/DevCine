@@ -1,49 +1,60 @@
 const API = "https://api-dev-cine.vercel.app/api/v1";
-document.addEventListener("DOMContentLoaded", async () => {
+
+document.addEventListener("DOMContentLoaded", loadEstrenoMovies);
+
+async function loadEstrenoMovies() {
   const estrenoContainer = document.getElementById("estreno-container");
 
-  // Obtener las películas de estreno del último año
-  const response = await fetch(`${API}/movies`);
-  const movies = await response.json();
+  try {
+    // Obtener las películas de estreno del último año
+    const response = await fetch(`${API}/movies`);
+    const movies = await response.json();
 
-  // Filtrar las primeras 36 películas del último año
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-  console.log("Año actual:", currentYear);
-  const filteredMovies = movies.filter((movie) => {
-    const movieYear = new Date(movie.releaseDate).getFullYear();
-    return movieYear === currentYear;
-  }).slice(0, 36);
-  console.log("Películas filtradas:", filteredMovies);
+    // Filtrar las primeras 36 películas del último año
+    const currentYear = new Date().getFullYear();
+    const filteredMovies = movies.filter((movie) => {
+      const movieYear = new Date(movie.releaseDate).getFullYear();
+      return movieYear === currentYear;
+    }).slice(0, 36);
 
-  // Mostrar las películas en el collage
-  filteredMovies.forEach((movie) => {
-    const movieCard = createMovieCard(movie);
-    estrenoContainer.appendChild(movieCard);
-  });
-  console.log("Películas mostradas:", filteredMovies.length);
-});
+    // Mostrar las películas en el collage
+    filteredMovies.forEach((movie) => {
+      const movieCard = createMovieCard(movie);
+      estrenoContainer.appendChild(movieCard);
+    });
+
+    console.log("Películas mostradas:", filteredMovies.length);
+  } catch (error) {
+    console.error("Error al cargar las películas de estreno:", error);
+  }
+}
 
 function createMovieCard(movie) {
   const movieCard = document.createElement("div");
   movieCard.classList.add("movie-card");
 
+  const imageContainer = document.createElement("div");
+  imageContainer.classList.add("image-container");
+
   const image = document.createElement("img");
   image.src = movie.img;
   image.alt = movie.title;
-  movieCard.appendChild(image);
+
+  const year = document.createElement("span");
+  year.classList.add("year");
+  year.textContent = movie.year;
+
+  imageContainer.appendChild(image);
+  imageContainer.appendChild(year);
+  movieCard.appendChild(imageContainer);
 
   const title = document.createElement("h2");
   title.textContent = movie.title;
   movieCard.appendChild(title);
 
-  const year = document.createElement("p");
-  year.textContent = `Year: ${new Date(movie.releaseDate).getFullYear()}`;
-  movieCard.appendChild(year);
-
-  const quality = document.createElement("p");
-  quality.textContent = `Quality: ${movie.quality}`;
-  movieCard.appendChild(quality);
+  movieCard.addEventListener("click", () => {
+    window.location.href = `src/movie/movie.html?id=${movie._id}`;
+  });
 
   return movieCard;
 }

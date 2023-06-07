@@ -49,12 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
         resultItem.appendChild(title);
 
         const year = document.createElement("p");
-        year.textContent = `Year: ${movie.year}`;
+        year.textContent = `${movie.year}`;
         resultItem.appendChild(year);
 
-        const genre = document.createElement("p");
-        genre.textContent = `Genre: ${movie.genre}`;
-        resultItem.appendChild(genre);
+        // Agregar evento click para redireccionar a la página de la película
+        resultItem.addEventListener("click", () => {
+          window.location.href = `src/movie/movie.html?id=${movie._id}`;
+        });
 
         searchResultsContainer.appendChild(resultItem);
       });
