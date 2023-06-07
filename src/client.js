@@ -17,28 +17,28 @@ function createMovieCard(movie) {
   const movieCard = document.createElement("div");
   movieCard.classList.add("movie-card");
 
+  const imageContainer = document.createElement("div");
+  imageContainer.classList.add("image-container");
+
   const image = document.createElement("img");
   image.src = movie.img;
   image.alt = movie.title;
-  movieCard.appendChild(image);
+
+  const year = document.createElement("span");
+  year.classList.add("year");
+  year.textContent = movie.year;
+
+  imageContainer.appendChild(image);
+  imageContainer.appendChild(year);
+  movieCard.appendChild(imageContainer);
 
   const title = document.createElement("h2");
   title.textContent = movie.title;
   movieCard.appendChild(title);
 
-  const year = document.createElement("p");
-  year.textContent = `Year: ${movie.year}`;
-  movieCard.appendChild(year);
-
-  const genre = document.createElement("p");
-  genre.textContent = `Genre: ${movie.genre}`;
-  movieCard.appendChild(genre);
-
-  // Agregar un enlace al detalle de la película
-  const detailsLink = document.createElement("a");
-  detailsLink.href = `src/movie/movie.html?id=${movie._id}`;
-  detailsLink.textContent = "Ver detalles";
-  movieCard.appendChild(detailsLink);
+  movieCard.addEventListener("click", () => {
+    window.location.href = `src/movie/movie.html?id=${movie._id}`;
+  });
 
   return movieCard;
 }
