@@ -7,10 +7,25 @@
 </head>
 
 <body>
-  <h1>Mi Sitio Web de Películas</h1>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <h1 class="navbar-title">Mi Sitio Web de Películas</h1>
+    </div>
+    <ul class="navbar-menu">
+      <li class="navbar-item"><a href="index.html">Inicio</a></li>
+      <li class="navbar-item"><a href="src/estreno/estreno.html">Películas Estreno</a></li>
+      <li class="navbar-item"><a href="src/actualizadas/actualizadas.html">Películas Actualizadas</a></li>
+      <li class="navbar-item navbar-search">
+        <input type="text" id="search-input" placeholder="Buscar por título">
+        <div id="search-results" class="search-results"></div>
+      </li>
+    </ul>
+  </nav>
+
   <div id="movies-container" class="grid-container"></div>
 
   <script src="src/client.js"></script>
+  <script src="src/search.js"></script>
 </body>
 
 </html>

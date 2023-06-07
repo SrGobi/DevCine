@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Películas de Estreno</title>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <h1 class="navbar-title">Mi Sitio Web de Películas</h1>
+    </div>
+    <ul class="navbar-menu">
+      <li class="navbar-item"><a href="../../index.html">Inicio</a></li>
+      <li class="navbar-item"><a href="estreno.html">Películas Estreno</a></li>
+      <li class="navbar-item"><a href="../actualizadas/actualizadas.html">Películas Actualizadas</a></li>
+      <li class="navbar-item navbar-search">
+        <input type="text" id="search-input" placeholder="Buscar por título">
+        <div id="search-results" class="search-results"></div>
+      </li>
+    </ul>
+  </nav>
+
+  <h2>Películas de Estreno</h2>
+
+  <div id="estreno-container" class="estreno-container"></div>
+
+  <script src="estreno.js"></script>
+  <script src="../search.js"></script>
+</body>
+
+</html>

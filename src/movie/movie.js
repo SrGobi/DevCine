@@ -1,42 +1,21 @@
-const API = "https://api-dev-cine.vercel.app/api/v1"
+const API = "https://api-dev-cine.vercel.app/api/v1";
+
 document.addEventListener("DOMContentLoaded", async () => {
-  // Obtener el ID de la película de la URL actual
   const urlParams = new URLSearchParams(window.location.search);
   const movieId = urlParams.get("id");
 
-  // Verificar si se proporcionó un ID de película válido
   if (movieId) {
-    // Obtener los detalles de la película desde el servidor
     const response = await fetch(`${API}/movie/${movieId}`);
     const movie = await response.json();
 
-    // Mostrar los detalles de la película en el contenedor
     const movieDetailsContainer = document.getElementById("movie-details-container");
     movieDetailsContainer.appendChild(createMovieDetailsHTML(movie));
-  } else {
-    // Mostrar un botón de prueba para volver a la página principal
-    const backButtonContainer = document.getElementById("back-button-container");
-
-    const backButton = document.createElement("button");
-    backButton.textContent = "Back to Home";
-    backButton.addEventListener("click", () => {
-      window.location.href = "index.html";
-    });
-
-    backButtonContainer.appendChild(backButton);
   }
 });
 
 function createMovieDetailsHTML(movie) {
   const movieDetails = document.createElement("div");
   movieDetails.classList.add("movie-details");
-
-  const backButton = document.createElement("button");
-  backButton.textContent = "Back to Home";
-  backButton.addEventListener("click", () => {
-    window.location.href = "index.html";
-  });
-  movieDetails.appendChild(backButton);
 
   const image = document.createElement("img");
   image.src = movie.img;
@@ -58,21 +37,56 @@ function createMovieDetailsHTML(movie) {
   const linksContainer = document.createElement("div");
   linksContainer.classList.add("links-container");
 
-  movie.links.forEach((link) => {
-    const torrentLink = document.createElement("a");
-    torrentLink.href = link;
-    torrentLink.target = "_blank";
-    torrentLink.classList.add("torrent-link");
+  const { "1080p": links1080p, "4k": links4k } = movie.links;
 
-    const button = document.createElement("button");
-    button.classList.add("torrent-button");
-    button.textContent = "TORRENT";
+  if (links1080p && links1080p.length > 0) {
+    const links1080pContainer = document.createElement("div");
+    links1080pContainer.classList.add("links1080p-container");
 
-    torrentLink.appendChild(button);
-    linksContainer.appendChild(torrentLink);
-  });
+    const links1080pTitle = document.createElement("h3");
+    links1080pTitle.textContent = "1080p Links";
+    links1080pContainer.appendChild(links1080pTitle);
+
+    links1080p.forEach((link) => {
+      const torrentLink = createTorrentLink(link);
+      links1080pContainer.appendChild(torrentLink);
+    });
+
+    linksContainer.appendChild(links1080pContainer);
+  }
+
+  if (links4k && links4k.length > 0) {
+    const links4kContainer = document.createElement("div");
+    links4kContainer.classList.add("links4k-container");
+
+    const links4kTitle = document.createElement("h3");
+    links4kTitle.textContent = "4k Links";
+    links4kContainer.appendChild(links4kTitle);
+
+    links4k.forEach((link) => {
+      const torrentLink = createTorrentLink(link);
+      links4kContainer.appendChild(torrentLink);
+    });
+
+    linksContainer.appendChild(links4kContainer);
+  }
 
   movieDetails.appendChild(linksContainer);
 
   return movieDetails;
+}
+
+function createTorrentLink(link) {
+  const torrentLink = document.createElement("a");
+  torrentLink.href = link;
+  torrentLink.target = "_blank";
+  torrentLink.classList.add("torrent-link");
+
+  const button = document.createElement("button");
+  button.classList.add("torrent-button");
+  button.textContent = "TORRENT";
+
+  torrentLink.appendChild(button);
+
+  return torrentLink;
 }
