@@ -1,7 +1,7 @@
 {
-  "name": "express-api-starter-ts",
+  "name": "api-devcine",
   "version": "1.2.0",
-  "description": " A basic starter for an express.js API with Typescript",
+  "description": "API basica para el proyecto DevCine",
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
