@@ -11,7 +11,7 @@ import { config } from 'dotenv';
 config({ path: '.env' });
 
 const isProduction = process.env.NODE_ENV === 'production';
-const defaultAllowedOrigins = ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:4321', 'http://localhost:4322'];
+const defaultAllowedOrigins = ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:4321', 'http://localhost:4322', 'https://srgobi.github.io'];
 const envOrigins = (process.env.ALLOWED_ORIGINS ?? '')
 	.split(',')
 	.map((origin) => origin.trim())
